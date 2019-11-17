@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './search.component';
 import { AppService } from 'src/app/service/app.service';
 import { BUS_LIST, MICROBUS_LIST } from '../../test-helpers/mock/api-datapoa';
-import { of } from 'rxjs';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -30,24 +29,26 @@ describe('SearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
+
     spyOn(component.appService, 'fetchBusLines').and.stub();
     spyOn(component.appService, 'fetchMicroBusLines').and.stub();
+
     fixture.detectChanges();
   });
 
-  it('should create and expected \'fetchs\' called on init', () => {
+  it('should create and called \'fetchs\' on init', () => {
     expect(component).toBeTruthy();
+    expect(component.appService).toBeTruthy();
     expect(component.appService.fetchBusLines).toHaveBeenCalled();
     expect(component.appService.fetchMicroBusLines).toHaveBeenCalled();
   });
 
-  it('should assert attribute \'filter\' default ', () => {
+  it('should be assert \'filter\' attribute default', () => {
     expect(component.filter).toEqual('bus');
   });
 
-  it('should assert attribute \'filter\' changing ', () => {
+  it('should be assert \'filter\' attribute when changing by handler click', () => {
     const { debugElement: { nativeElement } } = fixture;
-
     const radioBus = nativeElement.querySelector('[data-test="search-input__radio-bus"]');
     const radioMicroBus = nativeElement.querySelector('[data-test="search-input__radio-microBus"]');
 
@@ -58,7 +59,7 @@ describe('SearchComponent', () => {
     expect(component.filter).toEqual('bus');
   });
 
-  it('should coverage method  \'onSearch\' by filter bus', () => {
+  it('should be coverage method \'onSearch\' when filter value is \'bus\'', () => {
     component.stateBusLines = BUS_LIST;
 
     component.onSearch('perimetral');
@@ -71,7 +72,7 @@ describe('SearchComponent', () => {
     expect(component.queryResults.length).toEqual(1);
   });
 
-  it('should coverage method  \'onSearch\' by filter microBus', () => {
+  it('should be coverage method \'onSearch\' when filter value is \'microBus\'', () => {
     component.filter = 'microBus';
     component.stateMicroBusLines = MICROBUS_LIST;
 
@@ -85,7 +86,7 @@ describe('SearchComponent', () => {
     expect(component.queryResults.length).toEqual(1);
   });
 
-  it('should coverage method  \'onBlurSearch\'', () => {
+  it('should be empty \'queryResults\' when method \'onBlurSearch\' is called', () => {
     component.queryResults = MICROBUS_LIST;
 
     component.clearQueryResults();

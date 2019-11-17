@@ -6,6 +6,9 @@ import { AppService } from 'src/app/service/app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import itineraryParser from 'src/app/service/parser/itinerary';
+import { ITINERARY } from '../../test-helpers/mock/api-datapoa';
+
 describe('ItineraryComponent', () => {
   let component: ItineraryComponent;
   let fixture: ComponentFixture<ItineraryComponent>;
@@ -18,6 +21,9 @@ describe('ItineraryComponent', () => {
         HttpClientModule
       ],
       declarations: [ ItineraryComponent ],
+      providers: [
+        AppService
+      ]
     })
     .compileComponents();
   }));
@@ -29,8 +35,15 @@ describe('ItineraryComponent', () => {
   });
 
   it('should be created', () => {
-    const service: AppService = TestBed.get(AppService);
-    expect(service).toBeTruthy();
+    expect(component).toBeTruthy();
+    expect(component.appService).toBeTruthy();
+  });
+
+  it('should be assert attribute \'state\' when changed Subject \'itinerary\' from appService', () => {
+    const MOCK_PARSER_ITINERARY = itineraryParser.parse(ITINERARY);
+
+    component.appService.itinerary.next(MOCK_PARSER_ITINERARY);
+    expect(component.state).toEqual(MOCK_PARSER_ITINERARY);
   });
 
 });

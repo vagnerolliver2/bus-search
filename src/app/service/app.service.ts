@@ -17,7 +17,7 @@ export class AppService {
   microBusLines = new Subject<Bus[]>();
   itinerary = new Subject<Itinerary>();
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
    fetchBusLines(): void {
     const params = 'a=nc&p=%&t=o';
