@@ -40,7 +40,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private findPerMicroBusLines(value: string): Bus[] {
-    const regexValue = value.replace(/\s/g, '');
     return this.stateMicroBusLines.filter((bus: Bus) => this.removeSpaceString(bus.nome).toUpperCase().includes(value));
   }
 
