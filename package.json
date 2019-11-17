@@ -5,9 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
     "lint": "ng lint",
-    "test-e2e": "cypress open"
+    "test:unit": "ng test --code-coverage",
+    "test:e2e": "cypress open"
   },
   "private": true,
   "dependencies": {

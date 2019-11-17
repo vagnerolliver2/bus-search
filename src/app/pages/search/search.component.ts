@@ -11,8 +11,8 @@ import { AppService } from '../../service/app.service';
 })
 export class SearchComponent implements OnInit, OnDestroy {
 
-  private stateBusLines: Bus[];
-  private stateMicroBusLines: Bus[];
+  stateBusLines: Bus[];
+  stateMicroBusLines: Bus[];
 
   private subscriptionStateBus: Subscription;
   private subscriptionStateMicroBus: Subscription;
@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.filter === 'microBus') this.queryResults = this.findPerMicroBusLines(this.removeSpaceString(value).toUpperCase());
   }
 
-  removeSpaceString(value: string): string {
+  private removeSpaceString(value: string): string {
     return value.replace(/\s/g, '');
   }
 
