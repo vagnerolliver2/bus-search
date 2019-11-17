@@ -13,9 +13,12 @@
       aria-describedby="addon-search"
       (keyup)="onSearch($event.target.value)"
       (blur)="onBlurSearch($event.target.value)"
+      data-test="search-input__query"
     >
   </div>
 </div>
+
+{{filter}}
 
 <div class="form-inline mb-2" role="radiogroup">
   <div class="form-check mr-2" (click)="onSearch(searchInput.value, 'bus')">
@@ -28,6 +31,7 @@
       role="radio"
       aria-checked="true"
       [(ngModel)]="filter"
+      data-test="search-input__radio-bus"
     >
     <label class="form-check-label" for="bus">
       Ônibus
@@ -37,13 +41,14 @@
   <div class="form-check" (click)="onSearch(searchInput.value, 'microBus')">
     <input
       id="microBus"
-      class="form-check-input"
+      class="form-check-input microBus"
       type="radio"
       name="tipo"
       value="microBus"
       role="radio"
       aria-checked="false"
       [(ngModel)]="filter"
+      data-test="search-input__radio-microBus"
     >
     <label class="form-check-label" for="microBus">
       Lotação
@@ -52,7 +57,7 @@
 </div>
 
 <div class="list-group">
-  <ng-template ngFor let-item [ngForOf]="queryResults">
+  <ng-template ngFor let-item [ngForOf]="queryResults" data-test="search-list__query-results">
     <a
       class="list-group-item list-group-item-action"
       [routerLink]="['/itinerario', item.id]"
