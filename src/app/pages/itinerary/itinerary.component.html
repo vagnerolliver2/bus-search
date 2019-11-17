@@ -1,2 +1,19 @@
-<h1>{{ title }}</h1>
+<button type="button" routerLink="/" class="btn btn-outline-dark float-right">voltar</button>
 
+<h1 class="h4 mb-1">{{ state?.nome }} </h1>
+<small>Código: {{ state?.codigo }}</small>
+
+<hr>
+
+<div class="list-group">
+  <ng-template ngFor let-item [ngForOf]="state?.coordinates" let-i="index">
+    <span class="list-group-item list-group-item-action">
+      <a
+        [attr.href]="'https://www.google.com/maps/?q='+ item.lat + ',' + item.lng"
+        target="_blank"
+      >
+        ver o endereço do itenerário <b>{{ i }}</b> no mapa
+    </a>
+    </span>
+  </ng-template>
+</div>

@@ -1,26 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AppService } from './service/app.service';
 import { AppComponent } from './app.component';
-import { BusComponent } from './pages/bus/bus.component';
+import { SearchComponent } from './pages/search/search.component';
 import { ItineraryComponent } from './pages/itinerary/itinerary.component';
-import { MicroBusComponent } from './pages/micro-bus/micro-bus.component';
-import { SearchComponent } from './components/search/search.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    BusComponent,
-    ItineraryComponent,
-    MicroBusComponent,
-    SearchComponent
+    SearchComponent,
+    ItineraryComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

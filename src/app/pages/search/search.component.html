@@ -1,0 +1,65 @@
+<div class="row flex-column">
+   <div class="form-inline mb-1">
+      <div class="input-group flex-grow-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="addon-search">Pesquisar</span>
+        </div>
+        <input
+          #searchInput
+          type="text"
+          class="form-control form-control-lg"
+          aria-label="Pesquisarr"
+          aria-describedby="addon-search"
+          (keyup)="onSearch($event.target.value)"
+          (blur)="onBlurSearch($event.target.value)"
+        >
+      </div>
+    </div>
+
+    <div class="form-inline mb-1" role="radiogroup">
+      <div class="form-check mr-2" (click)="onSearch(searchInput.value, 'bus')">
+        <input
+          class="form-check-input"
+          name="tipo"
+          [(ngModel)]="filter"
+          value="bus"
+          type="radio"
+          id="bus"
+          checked
+          role="radio"
+          aria-checked="true"
+        >
+        <label class="form-check-label" for="bus">
+          Ônibus
+        </label>
+      </div>
+
+      <div class="form-check" (click)="onSearch(searchInput.value, 'microBus')">
+        <input
+          class="form-check-input"
+          name="tipo"
+          [(ngModel)]="filter"
+          value="microBus"
+          type="radio"
+          id="lotacao"
+          role="radio"
+          aria-checked="false"
+        >
+        <label class="form-check-label" for="lotacao">
+          Lotação
+        </label>
+      </div>
+    </div>
+
+    <div class="list-group">
+      <ng-template ngFor let-item [ngForOf]="queryResults">
+        <span class="list-group-item list-group-item-action" [routerLink]="['/itinerario', item.id]">
+          {{ item.nome }} - {{ item.codigo }}
+
+          <a class="float-right text-primary">
+            ver itinerário
+          </a>
+        </span>
+      </ng-template>
+    </div>
+</div>

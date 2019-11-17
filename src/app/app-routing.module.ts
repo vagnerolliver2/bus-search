@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { BusComponent } from './pages/bus/bus.component';
-import { MicroBusComponent } from './pages/micro-bus/micro-bus.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { SearchComponent } from './pages/search/search.component';
 import { ItineraryComponent } from './pages/itinerary/itinerary.component';
 
 
 const routes: Routes = [
-  { path: 'onibus', component: BusComponent },
-  { path: 'lotacao', component: MicroBusComponent },
-  { path: 'itinerarios', component: ItineraryComponent},
+  { path: '', redirectTo: '/busca', pathMatch: 'full' },
+  { path: 'busca', component: SearchComponent},
+  { path: 'itinerario/:id', component: ItineraryComponent},
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
