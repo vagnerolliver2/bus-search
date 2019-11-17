@@ -1,4 +1,9 @@
-<button type="button" routerLink="/" class="btn btn-outline-dark float-right">voltar</button>
+<button
+  type="button"
+  routerLink="/"
+  class="btn btn-outline-dark float-right"
+  aria-labelledby="voltar para página inicial"
+  >voltar</button>
 
 <h1 class="h4 mb-1">{{ state?.nome }} </h1>
 <small>Código: {{ state?.codigo }}</small>
@@ -7,13 +12,17 @@
 
 <div class="list-group">
   <ng-template ngFor let-item [ngForOf]="state?.coordinates" let-i="index">
-    <span class="list-group-item list-group-item-action">
       <a
+        class="list-group-item list-group-item-action"
         [attr.href]="'https://www.google.com/maps/?q='+ item.lat + ',' + item.lng"
         target="_blank"
+        [attr.aria-labelledby]="'ver endereço no mapa itenerário' + i "
       >
-        ver o endereço do itenerário <b>{{ i }}</b> no mapa
+        endereço do itenerário <b>{{ i }}</b>
+
+        <span class="float-right text-primary">
+            ver no mapa
+        </span>
     </a>
-    </span>
   </ng-template>
 </div>

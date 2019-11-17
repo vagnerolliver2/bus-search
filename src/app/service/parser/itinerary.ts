@@ -1,7 +1,6 @@
 import { Itinerary } from 'src/app/model/itinerary.model';
 
 export default {
-
   reduceByCoordenates() {
     const isCoordenate = this.validaCoordenate;
 
