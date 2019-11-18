@@ -22,20 +22,28 @@ export class AppService {
   constructor(public http: HttpClient) { }
 
    fetchBusLines(): void {
+    this.status.next(sendServiceStatus({ loading: true }));
     const params = 'a=nc&p=%&t=o';
 
     this.http.get(`${this.endpoint}?${params}`).subscribe({
-      next: (payload: Bus[]) => this.busLines.next(payload),
-      error: error => console.log('error', error)
+      next: (payload: Bus[]) =>  {
+        this.busLines.next(payload);
+        this.sendSucess();
+      },
+      error: error => this.sendInternalError(error)
     });
   }
 
   fetchMicroBusLines(): void {
+    this.status.next(sendServiceStatus({ loading: true }));
     const params = 'a=nc&p=%&t=l';
 
     this.http.get(`${this.endpoint}?${params}`).subscribe({
-      next: (payload: Bus[]) => this.microBusLines.next(payload),
-      error: error => console.log('error', error)
+      next: (payload: Bus[]) => {
+        this.microBusLines.next(payload);
+        this.sendSucess();
+      },
+      error: error => this.sendInternalError(error)
     });
   }
 

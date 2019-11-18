@@ -1,4 +1,4 @@
-<div [class.is-loading]="status?.loading">
+<div [class.invisible]="status?.loading">
   <div class="header">
     <button
       type="button"
@@ -31,7 +31,8 @@
       </a>
     </ng-template>
   </div>
-
-  <app-loading [loading]="status?.loading"></app-loading>
 </div>
+
+<app-loading [loading]="status?.loading"></app-loading>
+
 

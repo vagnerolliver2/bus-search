@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 import { Bus } from 'src/app/model';
 import { AppService } from '../../service/app.service';
+import { ServiceStatus } from 'src/app/service/utils/service-status';
 
 @Component({
   selector: 'app-search',
@@ -14,17 +16,29 @@ export class SearchComponent implements OnInit, OnDestroy {
   stateBusLines: Bus[];
   stateMicroBusLines: Bus[];
 
+  status: ServiceStatus;
+
   private subscriptionStateBus: Subscription;
   private subscriptionStateMicroBus: Subscription;
+  private subscriptionServiceStatus: Subscription;
 
   filter = 'bus';
   queryResults: Bus[];
 
-  constructor(public appService: AppService) { }
+  constructor(
+    public appService: AppService,
+    private toastrService: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.subscriptionStateBus = this.appService.busLines.subscribe((payload: Bus[]) => this.stateBusLines = payload);
     this.subscriptionStateMicroBus = this.appService.microBusLines.subscribe((payload: Bus[]) => this.stateMicroBusLines = payload);
+
+    this.subscriptionServiceStatus = this.appService.status.subscribe((status: ServiceStatus) => {
+      this.status = status;
+
+      if (status.internalError.length > 0) this.toastrService.error(status.internalError);
+    });
 
     this.appService.fetchBusLines();
     this.appService.fetchMicroBusLines();
@@ -33,6 +47,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subscriptionStateBus) this.subscriptionStateBus.unsubscribe();
     if (this.subscriptionStateMicroBus) this.subscriptionStateMicroBus.unsubscribe();
+    if (this.subscriptionServiceStatus) this.subscriptionServiceStatus.unsubscribe();
   }
 
   private findPerBusLines(value: string): Bus[] {
