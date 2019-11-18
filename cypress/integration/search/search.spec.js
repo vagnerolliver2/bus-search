@@ -15,10 +15,10 @@ context('[search-bus]', () => {
   context('performing searchs', () => {
     it('should choose on item to see itinerary by \'bus\'', () => {
       cy.server()
-      cy.route('GET', 'php/facades/process.php').as('dataPoa')
+      cy.route('GET', 'http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=l').as('dataPoa')
 
       cy.wait('@dataPoa').then(() => {
-        cy.get(selectors.searchInput).type('maio');
+        cy.get(selectors.searchInput);
       })
     })
   })

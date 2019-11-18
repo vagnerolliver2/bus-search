@@ -7,7 +7,8 @@
     "build": "ng build",
     "lint": "ng lint",
     "test:unit": "ng test --code-coverage",
-    "test:e2e": "cypress open"
+    "test:e2e": "CYPRESS_RETRIES=2 cypress open",
+    "test:e2e-headless": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +36,7 @@
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "cypress": "^3.6.1",
+    "cypress-plugin-retries": "^1.4.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
