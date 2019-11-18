@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ItineraryComponent } from './pages/itinerary/itinerary.component';
 import { SearchComponent } from './pages/search/search.component';
-import { AppService } from './service/app.service';
+import { LoadingComponent } from './components/loading/loading.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -16,14 +16,14 @@ describe('AppComponent', () => {
         RouterTestingModule.withRoutes([]),
         HttpClientModule,
         HttpClientTestingModule,
-        FormsModule,
+        FormsModule
       ],
       declarations: [
         AppComponent,
         SearchComponent,
         ItineraryComponent,
+        LoadingComponent
       ],
-      providers: [AppService],
     }).compileComponents();
   }));
 

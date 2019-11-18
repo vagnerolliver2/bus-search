@@ -2,10 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
 
-import { SearchComponent } from './search.component';
-import { AppService } from 'src/app/service/app.service';
 import { BUS_LIST, MICROBUS_LIST } from '../../test-helpers/mock/api-datapoa';
+import { SearchComponent } from './search.component';
+import { LoadingComponent } from 'src/app/components/loading/loading.component';
+import { AppService } from 'src/app/service/app.service';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -16,11 +18,16 @@ describe('SearchComponent', () => {
       imports: [
         RouterTestingModule.withRoutes([]),
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        ToastrModule.forRoot(),
       ],
-      declarations: [ SearchComponent ],
+      declarations: [
+        SearchComponent,
+        LoadingComponent
+      ],
       providers: [
-        AppService
+        AppService,
+        ToastrService
       ]
     })
     .compileComponents();
