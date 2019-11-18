@@ -1,28 +1,38 @@
-<button
-  type="button"
-  routerLink="/"
-  class="btn btn-outline-dark float-right"
-  aria-labelledby="voltar para página inicial"
-  >voltar</button>
+<div [class.invisible]="status?.loading">
+  <div class="header">
+    <button
+      type="button"
+      routerLink="/"
+      class="btn btn-outline-dark float-right"
+      aria-labelledby="voltar para página inicial"
+    >
+      voltar
+    </button>
 
-<h1 class="h4 mb-1">{{ state?.nome }} </h1>
-<small>Código: {{ state?.codigo }}</small>
+    <h1 class="h4 mb-1">{{ state?.nome }} </h1>
+    <small>Código: {{ state?.codigo }}</small>
 
-<hr>
+    <hr>
+  </div>
 
-<div class="list-group">
-  <ng-template ngFor let-item [ngForOf]="state?.coordinates" let-i="index">
-      <a
-        class="list-group-item list-group-item-action"
-        [attr.href]="'https://www.google.com/maps/?q='+ item.lat + ',' + item.lng"
-        target="_blank"
-        [attr.aria-labelledby]="'ver endereço no mapa itenerário' + i "
-      >
-        endereço do itenerário <b>{{ i }}</b>
+  <div class="list-group">
+    <ng-template ngFor let-item [ngForOf]="state?.coordinates" let-i="index">
+        <a
+          class="list-group-item list-group-item-action"
+          [attr.href]="'https://www.google.com/maps/?q='+ item.lat + ',' + item.lng"
+          target="_blank"
+          [attr.aria-labelledby]="'ver endereço no mapa itenerário' + i "
+        >
+          endereço do itenerário <b>{{ i }}</b>
 
-        <span class="float-right text-primary">
-            ver no mapa
-        </span>
-    </a>
-  </ng-template>
+          <span class="float-right text-primary">
+              ver no mapa
+          </span>
+      </a>
+    </ng-template>
+  </div>
 </div>
+
+<app-loading [loading]="status?.loading"></app-loading>
+
+

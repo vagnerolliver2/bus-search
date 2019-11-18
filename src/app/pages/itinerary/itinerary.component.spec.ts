@@ -5,9 +5,11 @@ import { ItineraryComponent } from './itinerary.component';
 import { AppService } from 'src/app/service/app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
 
-import itineraryParser from 'src/app/service/parser/itinerary';
 import { ITINERARY } from '../../test-helpers/mock/api-datapoa';
+import itineraryParser from 'src/app/service/parser/itinerary';
+import { LoadingComponent } from 'src/app/components/loading/loading.component';
 
 describe('ItineraryComponent', () => {
   let component: ItineraryComponent;
@@ -18,11 +20,16 @@ describe('ItineraryComponent', () => {
       imports: [
         RouterTestingModule.withRoutes([]),
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        ToastrModule.forRoot(),
       ],
-      declarations: [ ItineraryComponent ],
+      declarations: [
+        ItineraryComponent,
+        LoadingComponent
+      ],
       providers: [
-        AppService
+        AppService,
+        ToastrService
       ]
     })
     .compileComponents();

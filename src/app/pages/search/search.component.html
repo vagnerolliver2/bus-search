@@ -1,72 +1,74 @@
 
-<div class="form-inline mb-2">
-  <div class="input-group flex-grow-1">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="search">Pesquisar</label>
+<div [class.invisible]="status?.loading">
+  <div class="form-inline mb-2">
+    <div class="input-group flex-grow-1">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="search">Pesquisar</label>
+      </div>
+      <input
+        #searchInput
+        id="search"
+        type="text"
+        class="form-control form-control-lg"
+        aria-label="Pesquisarr"
+        aria-describedby="addon-search"
+        (keyup)="onSearch($event.target.value)"
+        (blur)="onBlurSearch($event.target.value)"
+        data-test="search-input__query"
+      >
     </div>
-    <input
-      #searchInput
-      id="search"
-      type="text"
-      class="form-control form-control-lg"
-      aria-label="Pesquisarr"
-      aria-describedby="addon-search"
-      (keyup)="onSearch($event.target.value)"
-      (blur)="onBlurSearch($event.target.value)"
-      data-test="search-input__query"
-    >
+  </div>
+  <div class="form-inline mb-2" role="radiogroup">
+    <div class="form-check mr-2" (click)="onSearch(searchInput.value, 'bus')">
+      <input
+        id="bus"
+        class="form-check-input"
+        type="radio"
+        name="tipo"
+        value="bus"
+        role="radio"
+        aria-checked="true"
+        [(ngModel)]="filter"
+        data-test="search-input__radio-bus"
+      >
+      <label class="form-check-label" for="bus">
+        Ônibus
+      </label>
+    </div>
+
+    <div class="form-check" (click)="onSearch(searchInput.value, 'microBus')">
+      <input
+        id="microBus"
+        class="form-check-input microBus"
+        type="radio"
+        name="tipo"
+        value="microBus"
+        role="radio"
+        aria-checked="false"
+        [(ngModel)]="filter"
+        data-test="search-input__radio-microBus"
+      >
+      <label class="form-check-label" for="microBus">
+        Lotação
+      </label>
+    </div>
+  </div>
+
+  <div class="list-group">
+    <ng-template ngFor let-item [ngForOf]="queryResults" data-test="search-list__query-results">
+      <a
+        class="list-group-item list-group-item-action"
+        [routerLink]="['/itinerario', item.id]"
+        [attr.aria-labelledby]="'ver itinerário ' + item.nome">
+        {{ item.nome }} - {{ item.codigo }}
+
+        <span class="float-right text-primary">
+          ver itinerário
+        </span>
+      </a>
+    </ng-template>
   </div>
 </div>
 
-{{filter}}
+<app-loading [loading]="status?.loading"></app-loading>
 
-<div class="form-inline mb-2" role="radiogroup">
-  <div class="form-check mr-2" (click)="onSearch(searchInput.value, 'bus')">
-    <input
-      id="bus"
-      class="form-check-input"
-      type="radio"
-      name="tipo"
-      value="bus"
-      role="radio"
-      aria-checked="true"
-      [(ngModel)]="filter"
-      data-test="search-input__radio-bus"
-    >
-    <label class="form-check-label" for="bus">
-      Ônibus
-    </label>
-  </div>
-
-  <div class="form-check" (click)="onSearch(searchInput.value, 'microBus')">
-    <input
-      id="microBus"
-      class="form-check-input microBus"
-      type="radio"
-      name="tipo"
-      value="microBus"
-      role="radio"
-      aria-checked="false"
-      [(ngModel)]="filter"
-      data-test="search-input__radio-microBus"
-    >
-    <label class="form-check-label" for="microBus">
-      Lotação
-    </label>
-  </div>
-</div>
-
-<div class="list-group">
-  <ng-template ngFor let-item [ngForOf]="queryResults" data-test="search-list__query-results">
-    <a
-      class="list-group-item list-group-item-action"
-      [routerLink]="['/itinerario', item.id]"
-      [attr.aria-labelledby]="'ver itinerário ' + item.nome">
-      {{ item.nome }} - {{ item.codigo }}
-
-      <span class="float-right text-primary">
-        ver itinerário
-      </span>
-    </a>
-  </ng-template>
-</div>
